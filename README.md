@@ -1,26 +1,39 @@
 Hola, para el desarrollo del presente proyecto se utilizaron los siguientes recursos:
+<br/><br/>
 -Server Linux: Ubuntu 20.04
+<br/><br/>
 -SQL Server Corriendo en Linux: 15.0.4188.2
-    
+<br/><br/>
 El Proyecto esta corriendo en la siguiente dirección:
+<br/><br/>
 https://registronet.duckdns.org/
-
+<br/><br/>
 Los datos SSH, los enviare por correo:
+<br/><br/>
 -Puerto SSH : 22
+<br/><br/>
 Comando para acceder a la consola de .NET:
+<br/><br/>
 -$screen -R
+<br/><br/>
 ##################Para acceder a base de datos de forma remota#######################
+<br/><br/>
 Host 1: registronet.duckdns.org
+<br/><br/>
 ó
+<br/><br/>
 Host 2: 207.246.69.79
+<br/><br/>
 Puerto para acceder de forma remota a base de datos: 1433
+<br/><br/>
 Usuario: sa
+<br/><br/>
 Contraseña: Contraseña123*
-
+<br/><br/>
 Uso SQL Server Manager, el cual es versión: 18.10, versión para Windows 10
-
+<br/><br/>
 ---->Script para SQL Server Stored Procedures<---
-
+<br/><br/>
 CREATE PROCEDURE dbo.sp_obtener_mes(
 	@idMes INT = NULL
 )
