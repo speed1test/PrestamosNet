@@ -5,6 +5,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Prestamos.Models;
 using Prestamos.Repository;
+using Log.Repository;
 
 namespace Prestamo;
 
@@ -37,12 +38,14 @@ public class PrestamoController : Controller{
         return View("/Views/Prestamo/Index.cshtml");
     }
     [Route("/Prestamo/Consultar/Cuota/{idPrestamo}")]
-    public IActionResult ConsultarCuota(string idPrestamo)
+    public IActionResult ConsultarCuota(int idPrestamo)
     {
         PrestamoModel prestamo = PrestamosRepository.obtenerPrestamo(Convert.ToInt32(idPrestamo));
-        //ViewBag.prestamo = prestamo;
-        ViewBag.cuota = CalcularCuota(prestamo.fechaPrestamo,prestamo.montoPrestamo,prestamo.mesesPrestamo.valorMes);
-        Console.WriteLine(getIp(HttpContext));
+        double cuota = CalcularCuota(prestamo.fechaPrestamo,prestamo.montoPrestamo,prestamo.mesesPrestamo.valorMes);
+        int edad = ObtenerEdad(Convert.ToDateTime(prestamo.fechaPrestamo));
+        string ipConsulta = obtenerIp(HttpContext);
+        ViewBag.cuota = cuota;
+        bool flag = LogRepository.registrarLog(idPrestamo,edad,cuota,ipConsulta);
         //Console.WriteLine(CalcularCuota(prestamo.fechaPrestamo,prestamo.montoPrestamo,prestamo.mesesPrestamo.valorMes));
         return View("/Views/Prestamo/ConsultarCuota.cshtml");
     }
@@ -60,7 +63,7 @@ public class PrestamoController : Controller{
         }
         return calculo;
     }
-    public static string getIp(HttpContext context)
+    public static string obtenerIp(HttpContext context)
     {
         string ip = string.Empty;
 	    if (!string.IsNullOrEmpty(context.Request.Headers["X-Forwarded-For"]))
