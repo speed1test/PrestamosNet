@@ -21,5 +21,9 @@ public class PrestamoController : Controller{
         ViewBag.prestamos = PrestamosRepository.obtenerPrestamos();
         return View("/Views/Prestamo/Index.cshtml");
     }
-
+    [Route("/Prestamo/Crear")]
+    public IActionResult Crear()
+    {
+        return View("/Views/Prestamo/Crear.cshtml");
+    }
 }
