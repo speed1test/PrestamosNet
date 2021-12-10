@@ -16323,6 +16323,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\edwin\\prestamos\\Prestamos\\Views\\Prestamo\\ConsultarCuota.cshtml",
+      "TargetPath": "Views\\Prestamo\\ConsultarCuota.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\edwin\\prestamos\\Prestamos\\Views\\Shared\\Error.cshtml",
       "TargetPath": "Views\\Shared\\Error.cshtml",
       "FileKind": "mvc"

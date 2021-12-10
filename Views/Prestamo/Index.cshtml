@@ -13,6 +13,7 @@
       <th scope="col">Fecha</th>
       <th scope="col">Monto</th>
       <th scope="col">Meses</th>
+      <th scope="col">Cuota</th>
       <th scope="col">Acción</th>
     </tr>
   </thead>
@@ -22,8 +23,11 @@
         <tr>
             <th scope="row">@item.idPrestamo</th>
             <td>@item.fechaPrestamo</td>
-            <td>$@item.montoPrestamo</td>
-            <td>@item.mesesPrestamo</td>
+            <td>@(((decimal)item.montoPrestamo).ToString("C2"))</td>
+            <td>@item.mesesPrestamo.descripcionMes</td>
+            <td>
+                <a type="button" class="btn btn-primary" asp-controller="Prestamo" asp-action="ConsultarCuota" asp-route-idPrestamo="@item.idPrestamo">Consultar</a>
+            </td>
             <td>
                 <a type="button" class="btn btn-danger" asp-controller="" asp-action="">Eliminar</a>
             </td>
