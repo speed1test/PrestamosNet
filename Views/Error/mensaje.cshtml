@@ -1,0 +1,11 @@
+@{
+    ViewData["Title"] = "Parece que hay un error...";
+}
+@if(ViewBag.error = true){
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Paso algo curioso!</strong> No lo reconozco xD
+</div>
+}
+<center>
+    <a type="button" class="btn btn-primary btn-lg btn-block" asp-action="Index" asp-controller="Home">Regresar a Home</a>
+</center>

@@ -1,0 +1,10 @@
+@{
+    ViewData["Title"] = "Confirmar";
+}
+<h1>Confirma que quieres eliminar el prestamo</h1>
+<form asp-controller="Prestamo" asp-action="Eliminar" method="post">
+    <p></p>
+    <button type="submit" class="btn btn-dark">Confirmar</button>
+    <p></p>
+</form>
+<a type="button" class="btn btn-secondary" asp-controller="Prestamo" asp-action="Ver">Cancelar</a>

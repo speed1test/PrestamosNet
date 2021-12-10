@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Consultar cuota";
+}
+<h1>Registro de Ingresos</h1>
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Monto</th>
+      <th scope="col">Fecha de Consulta</th>
+      <th scope="col">Ip de Consulta</th>
+      <th scope="col">Valor de Cuota</th>
+      <th scope="col">Edad</th>
+      <th scope="col">Meses</th>
+    </tr>
+  </thead>
+  <tbody>
+      @foreach (LogModel item in ViewBag.logs)
+      {
+        <tr>
+            <th scope="row">@item.idConsulta</th>
+            <td>@(((decimal)item.idFkPrestamo.montoPrestamo).ToString("C2"))</td>
+            <td>@item.fechaConsulta</td>
+            <td>@item.ipConsulta</td>
+            <td>@(((decimal)item.valorConsulta).ToString("C2"))</td>
+            <td>@item.edadConsulta</td>
+            <td>@item.idFkPrestamo.mesesPrestamo.descripcionMes</td>
+        </tr>
+      }
+  </tbody>
+</table>

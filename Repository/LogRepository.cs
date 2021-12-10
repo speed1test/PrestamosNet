@@ -68,15 +68,52 @@ namespace Log.Repository
             //Console.WriteLine(cuota);*/
             return flag;
         }
-        public static class GetConString
-    {
-        public static string ConString()
+        public static List<LogModel> obtenerLogs()
         {
-            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-            var config = builder.Build();
-            string constring = config.GetConnectionString("DefaultConnection");
-            return constring;
+            List<LogModel> logList = new List<LogModel>();
+            try
+            {
+                SqlConnection con = new SqlConnection();
+                con.ConnectionString = Global.getConnectionString();
+                List<SqlParameter> listadoParametros = new List<SqlParameter>
+                {
+                };
+                List<SqlParameter> listadoParametrosSalida = new List<SqlParameter>
+                {
+                };
+                DataTable objetoSalida = ejecucionSP.ExecuteSPWithDataReturn("sp_obtener_logs", listadoParametros, con);
+                if (objetoSalida.Rows.Count > 0)
+                {
+                    for (int i = 0; i < objetoSalida.Rows.Count; i++)
+                    {
+                        LogModel u = new LogModel();
+                        PrestamoModel a = new PrestamoModel();
+                        u.idConsulta = Convert.ToInt32(objetoSalida.Rows[i]["IDCONSULTA"]);
+                        a = PrestamosRepository.obtenerPrestamo(Convert.ToInt32(objetoSalida.Rows[i]["IDPRESTAMO"]));
+                        u.idFkPrestamo = a;
+                        u.fechaConsulta =  Convert.ToString(objetoSalida.Rows[i]["FECHACONSULTA"]);
+                        u.ipConsulta = Convert.ToString(objetoSalida.Rows[i]["IPCONSULTA"]);
+                        u.valorConsulta = Convert.ToDouble(objetoSalida.Rows[i]["VALORCONSULTA"]);
+                        u.edadConsulta = Convert.ToInt32(objetoSalida.Rows[i]["EDADCONSULTA"]);
+                        logList.Add(u);
+                    }
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Algo salio mal...");
+            }
+            return logList;
         }
-    }
+        public static class GetConString
+        {
+            public static string ConString()
+            {
+                var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                var config = builder.Build();
+                string constring = config.GetConnectionString("DefaultConnection");
+                return constring;
+            }
+        }
     }
 }

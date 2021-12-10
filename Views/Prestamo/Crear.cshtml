@@ -2,6 +2,16 @@
 @{
     ViewData["Title"] = "Crear nuevo prestamo";
 }
+@if(ViewBag.estado == 0){
+    <div class="alert alert-success" role="alert">
+        Lo Sentimos aun no cuenta con la edad para solicitar este producto.
+    </div>
+}
+@if(ViewBag.estado == 1){
+    <div class="alert alert-success" role="alert">
+        Favor pasar por una de nuestras sucursales para evaluar su caso.
+    </div>
+}
 <form asp-controller="Prestamo" asp-action="Crear">
 <h1>Crea un nuevo Prestamo</h1>
 <hr>

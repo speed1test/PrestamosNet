@@ -210,5 +210,30 @@ namespace Prestamos.Repository
             }
             return prestamo;
         }
+        public static bool eliminarPrestamo(int idPrestamo)
+        {
+            bool flag = true;
+            try
+            {
+                SqlConnection con = new SqlConnection();
+                con.ConnectionString = Global.getConnectionString();
+
+                SqlParameter idPres = new SqlParameter();
+                idPres.ParameterName = "@idPrestamo"; 
+                idPres.Value = idPrestamo; 
+
+                List<SqlParameter> listadoParametros = new List<SqlParameter>(){
+                    idPres
+                };
+                //dbo.
+                //ejecucionSP.EjecutarSPConSalidas("sp_registrar_prestamo" , listadoParametros , con, "@id" ,SqlDbType.Int ,ref flag);
+                ejecucionSP.ExecuteSPWithNoDataReturn("sp_eliminar_prestamo", listadoParametros, con, ref flag);
+            }
+            catch
+            {
+                Console.WriteLine("Algo salio mal");
+            }
+            return flag;
+        }
     }
 }

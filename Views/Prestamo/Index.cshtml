@@ -29,7 +29,7 @@
                 <a type="button" class="btn btn-primary" asp-controller="Prestamo" asp-action="ConsultarCuota" asp-route-idPrestamo="@item.idPrestamo">Consultar</a>
             </td>
             <td>
-                <a type="button" class="btn btn-danger" asp-controller="" asp-action="">Eliminar</a>
+                <a type="button" class="btn btn-danger" asp-controller="Prestamo" asp-action="Eliminar" asp-route-idPrestamo="@item.idPrestamo">Eliminar</a>
             </td>
         </tr>
       }
