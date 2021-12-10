@@ -45,7 +45,7 @@ public class PrestamoController : Controller{
         int edad = ObtenerEdad(Convert.ToDateTime(prestamo.fechaPrestamo));
         string ipConsulta = obtenerIp(HttpContext);
         ViewBag.cuota = cuota;
-        bool flag = LogRepository.registrarLog(idPrestamo,edad,cuota,ipConsulta);
+        LogRepository.registrarLog(idPrestamo,edad,cuota,ipConsulta);
         //Console.WriteLine(CalcularCuota(prestamo.fechaPrestamo,prestamo.montoPrestamo,prestamo.mesesPrestamo.valorMes));
         return View("/Views/Prestamo/ConsultarCuota.cshtml");
     }

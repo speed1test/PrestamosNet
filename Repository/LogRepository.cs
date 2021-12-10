@@ -7,6 +7,9 @@ using Prestamos.Utils;
 using Microsoft.Extensions.Logging;
 using Prestamos.Controllers;
 using Prestamos.Repository;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+//using Microsoft.Data.SqlClient;
 
 namespace Log.Repository
 {
@@ -15,7 +18,14 @@ namespace Log.Repository
         public static bool registrarLog(int idPrestamo, int edad, double cuota, string ip){
             bool flag = true;
             PrestamoModel prestamo = PrestamosRepository.obtenerPrestamo(idPrestamo);
-            try
+            SqlConnection con = new SqlConnection(GetConString.ConString());
+            string query = "INSERT INTO LOG_REGISTRO(IDPRESTAMO,FECHACONSULTA,EDADCONSULTA,IPCONSULTA,VALORCONSULTA) values ('" + idPrestamo + "','"+ DateTime.Now + "','"+ edad + "','" + ip + "','" + cuota + "')";
+            SqlCommand cmd = new SqlCommand(query, con);
+            con.Open();
+            int i = cmd.ExecuteNonQuery();
+            con.Close();
+            Console.WriteLine("El resultado es: "+i);
+            /*try
             {
                 SqlConnection con = new SqlConnection();
                 con.ConnectionString = Global.getConnectionString();
@@ -48,15 +58,25 @@ namespace Log.Repository
                     valorCon
                 };
                 //dbo.
-                //ejecucionSP.EjecutarSPConSalidas("sp_registrar_prestamo" , listadoParametros , con, "@id" ,SqlDbType.Int ,ref flag);
+                //ejecucionSP.EjecutarSPConSalidas("sp_registrar_log" , listadoParametros , con, "@id" ,SqlDbType.Int ,ref flag);
                 ejecucionSP.ExecuteSPWithNoDataReturn("sp_registrar_log", listadoParametros, con, ref flag);
             }
             catch
             {
                 Console.WriteLine("Algo salio mal");
             }
-            //Console.WriteLine(cuota);
+            //Console.WriteLine(cuota);*/
             return flag;
         }
+        public static class GetConString
+    {
+        public static string ConString()
+        {
+            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            var config = builder.Build();
+            string constring = config.GetConnectionString("DefaultConnection");
+            return constring;
+        }
+    }
     }
 }
